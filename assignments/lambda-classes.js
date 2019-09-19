@@ -10,14 +10,16 @@ class Person {
     }                                                
     speak(){                                                
         return `Hello! My name is ${this.name} and I am from ${this.location}`;     
-      }                                                       
+      }  
+                                                
     } 
 class Student extends Person{             
     constructor(attributes){                         
         super(attributes);                         
         this.previousBackground = attributes.previousBackground,    
         this.className = attributes.className,
-        this.faveSubjects = attributes.faveSubjects
+        this.faveSubjects = attributes.faveSubjects,
+        this.grade = attributes.grade
     }                                             
     listsSubjects(){                                             
         return `Favorite subjects are ${this.faveSubjects[i]}`                  
@@ -27,6 +29,17 @@ class Student extends Person{
     }
     sprintChallenge(){
         return `${student.name} has begun sprint challenge on ${subject}`
+    }
+    showGrade(subject){
+        return `${this.name} has a ${this.grade} in ${subject}`
+    }   
+    graduate(student){
+        if (student.grade > 80){
+            return `${student.name} has graduated!`
+        }
+        else {
+            return `${student.name} did not graduate. D:`
+        }
     }
 }                                                                 
 
@@ -41,7 +54,11 @@ class Instructor extends Person{
         return `Today we are learning about ${subject}`;                
     }                                                         
     grade(student, subject){
-        return `${student.name} receives a perfect score on ${subject}`;
+        return `${student} receives a perfect score on ${subject}`;
+    }
+    gradeChange(student){
+       student.grade = (student.grade + getRandomInt())
+       return `${student.name}'s new grade is now ${student.grade}`
     }
 }    
 
@@ -67,7 +84,8 @@ const joshua = new Student({
     location: 'Texas',
     age: 28,
     height: "6'2",
-    skill: 'Coding... sort of...'
+    skill: 'Coding... sort of...',
+    grade: 90,
 });
 
 // INSTRUCTORS //
@@ -91,7 +109,39 @@ const don = new ProjectManager({
 console.log(joshua.speak());
 console.log(thomas.speak());
 console.log(don.speak());
-console.log(thomas.demo());
+console.log(thomas.demo("Javascript"));
+console.log(don.demo("Hacking the universe"));
+console.log(thomas.grade("Joshua", "Javascript"));
+console.log(joshua.showGrade("Javascript"));
 
 // STRETCH PROBLEMS //
 
+// CONSOLE.LOG OF THE NEW GRADE AFTER CHANGE //
+console.log(thomas.gradeChange(joshua));
+// FUNCTION THAT GENERATES A RANDOM INTEGER BETWEEN 1 AND 100 //
+function getRandomInt() {
+    return Math.floor(Math.random() * Math.floor(-10));
+  }
+// CONSOLE.LOG TO TEST RANDON INTEGER FUNCTION //
+  console.log(getRandomInt());
+// CONSOLE.LOG TO SHOW IF STUDENT HAS GRADUATED OR NOT //
+  console.log(joshua.graduate(joshua));
+
+
+
+// CODE TO GENERATE A RANDOM OPERATOR BETWEEN "+" AND "-"
+  var operators = [{
+    sign: "+",
+    method: function(){}
+},{
+    sign: "-",
+    method: function(){}
+}];
+
+var selectedOperator = Math.floor(Math.random()*operators.length);
+// CONSOLE.LOG TO SH OW RANDOM OPERATOR OUTPUT //
+console.log(operators[selectedOperator].sign) //this will give you the sign
+
+function randomOperator(){
+    return operators[selectedOperator].sign;
+}
